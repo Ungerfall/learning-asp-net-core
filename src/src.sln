@@ -3,7 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindStore", "NorthwindStore\NorthwindStore.csproj", "{21D2B387-5D42-4C34-B106-28B25CA891D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthwindStore", "NorthwindStore\NorthwindStore.csproj", "{21D2B387-5D42-4C34-B106-28B25CA891D7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthwindStore.Data", "NorthwindStore.Data\NorthwindStore.Data.csproj", "{7A8824E3-8341-47AD-9F9A-07DA6BD98CB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItem", "SolutionItem", "{8D56ECF1-D8A1-4C36-B03D-E112EF562992}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +22,10 @@ Global
 		{21D2B387-5D42-4C34-B106-28B25CA891D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21D2B387-5D42-4C34-B106-28B25CA891D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21D2B387-5D42-4C34-B106-28B25CA891D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A8824E3-8341-47AD-9F9A-07DA6BD98CB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A8824E3-8341-47AD-9F9A-07DA6BD98CB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A8824E3-8341-47AD-9F9A-07DA6BD98CB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A8824E3-8341-47AD-9F9A-07DA6BD98CB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

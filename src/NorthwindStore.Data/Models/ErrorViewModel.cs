@@ -1,6 +1,4 @@
-using System;
-
-namespace NorthwindStore.Models
+namespace NorthwindStore.Data.Models
 {
 	public class ErrorViewModel
 	{
