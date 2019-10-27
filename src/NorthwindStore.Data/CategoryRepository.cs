@@ -15,7 +15,7 @@ namespace NorthwindStore.Data
 
         public IQueryable<Categories> GetCategories()
         {
-	        return dbContext.Categories;
+            return dbContext.Categories;
         }
 
         private bool disposed = false;
