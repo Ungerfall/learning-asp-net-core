@@ -2,23 +2,34 @@
 using NorthwindStore.Data.Models;
 using System;
 using System.Linq;
+using NorthwindStore.Data.Filters;
 
 namespace NorthwindStore.Data
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly NorthwindContext dbContext;
+        internal const int TAKE_ALL_PRODUCTS_VALUE = 0;
 
-        public ProductRepository(NorthwindContext dbContext)
+        private readonly NorthwindContext dbContext;
+        private readonly ProductFilter cfg;
+
+        public ProductRepository(NorthwindContext dbContext, ProductFilter filter)
         {
+            if (filter.MaximumCount < 0) throw new ArgumentException(nameof(filter));
+
             this.dbContext = dbContext;
+            cfg = filter;
         }
 
         public IQueryable<Models.Products> GetProducts()
         {
-            return dbContext.Products
+            var products = dbContext.Products
                 .Include(x => x.Supplier)
                 .Include(x => x.Category);
+
+            return cfg.MaximumCount != TAKE_ALL_PRODUCTS_VALUE
+                ? products.Take(cfg.MaximumCount)
+                : products;
         }
 
         private bool disposed = false;

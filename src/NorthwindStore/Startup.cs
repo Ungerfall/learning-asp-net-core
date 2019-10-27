@@ -5,12 +5,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NorthwindStore.Data;
+using NorthwindStore.Data.Filters;
 using NorthwindStore.Data.Models;
 
 namespace NorthwindStore
 {
     public class Startup
     {
+        private string PRODUCTS_CONFIGURATION_SECTION = "Products";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,6 +29,12 @@ namespace NorthwindStore
                 options.UseSqlServer(Configuration.GetConnectionString("NorthwindContext")));
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddSingleton(x =>
+            {
+                var productCfg = new ProductFilter();
+                Configuration.GetSection(PRODUCTS_CONFIGURATION_SECTION).Bind(productCfg);
+                return productCfg;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

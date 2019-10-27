@@ -15,7 +15,8 @@ namespace NorthwindStore.Controllers
 
         public IActionResult Index()
         {
-            var products = productRepository.GetProducts();
+            var products = productRepository
+                .GetProducts();
             return View(products);
         }
     }
