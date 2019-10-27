@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using NorthwindStore.Data;
 
 namespace NorthwindStore.Controllers
@@ -9,7 +10,7 @@ namespace NorthwindStore.Controllers
 
         public CategoryController(ICategoryRepository categoryRepository)
         {
-            this.categoryRepository = categoryRepository;
+            this.categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
 
         public IActionResult Index()
