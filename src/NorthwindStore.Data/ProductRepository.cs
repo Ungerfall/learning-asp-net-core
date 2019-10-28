@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NorthwindStore.Data.Filters;
 using NorthwindStore.Data.Models;
 using System;
 using System.Linq;
-using NorthwindStore.Data.Filters;
 
 namespace NorthwindStore.Data
 {
@@ -30,6 +30,12 @@ namespace NorthwindStore.Data
             return cfg.MaximumCount != TAKE_ALL_PRODUCTS_VALUE
                 ? products.Take(cfg.MaximumCount)
                 : products;
+        }
+
+        public Products GetProductById(int? productId)
+        {
+            return dbContext.Products
+                .FirstOrDefault(x => x.ProductId == productId);
         }
 
         private bool disposed = false;

@@ -6,5 +6,6 @@ namespace NorthwindStore.Data
     public interface IProductRepository : IDisposable
     {
         IQueryable<Models.Products> GetProducts();
+        Models.Products GetProductById(int? productId);
     }
 }

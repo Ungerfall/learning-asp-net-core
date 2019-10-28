@@ -29,6 +29,7 @@ namespace NorthwindStore
                 options.UseSqlServer(Configuration.GetConnectionString("NorthwindContext")));
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<ISupplierRepository, SupplierRepository>();
             services.AddSingleton(x =>
             {
                 var productCfg = new ProductFilter();
