@@ -10,6 +10,8 @@ using NorthwindStore.Data.Filters;
 using NorthwindStore.Data.Models;
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace NorthwindStore
 {
@@ -31,7 +33,7 @@ namespace NorthwindStore
             services.AddMemoryCache();
             services.AddDbContext<NorthwindContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("NorthwindContext")));
-            services.AddTransient<ICategoryRepository, CategoryRepository>();
+//            services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ISupplierRepository, SupplierRepository>();
             services.AddSingleton(x =>
@@ -47,7 +49,28 @@ namespace NorthwindStore
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler(errorApp =>
+                {
+                    errorApp.Run(async context =>
+                    {
+                        context.Response.StatusCode = 500;
+                        context.Response.ContentType = "text/html";
+
+                        var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+                        var exceptionPath = exceptionHandlerPathFeature?.Path;
+                        var exceptionError = exceptionHandlerPathFeature?.Error.Message;
+
+                        await context.Response.WriteAsync("<html lang=\"en\"><body>\r\n");
+                        await context.Response.WriteAsync(
+	                        $"ERROR!<br>Ask support team for help. Error path = {exceptionPath}<br>\r\n");
+
+                        logger.LogError("Path: {0}; Error: {1}", exceptionPath, exceptionError);
+
+                        await context.Response.WriteAsync("<a href=\"/\">Home</a><br>\r\n");
+                        await context.Response.WriteAsync("</body></html>\r\n");
+                        await context.Response.WriteAsync(new string(' ', 512)); // IE padding
+                    });
+                });
             }
             else
             {
