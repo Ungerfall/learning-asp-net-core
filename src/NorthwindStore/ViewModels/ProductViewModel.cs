@@ -1,5 +1,6 @@
 ﻿using NorthwindStore.Data.Models;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace NorthwindStore.ViewModels
 {
@@ -9,8 +10,8 @@ namespace NorthwindStore.ViewModels
 
         public IEnumerable<Products> Products { get; set; }
 
-        public IEnumerable<Suppliers> Suppliers { get; set; }
+        public IEnumerable<SelectListItem> Suppliers { get; set; }
 
-        public IEnumerable<Categories> Categories { get; set; }
+        public IEnumerable<SelectListItem> Categories { get; set; }
     }
 }
