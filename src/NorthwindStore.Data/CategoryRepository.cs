@@ -1,5 +1,4 @@
 ﻿using NorthwindStore.Data.Models;
-using System;
 using System.Linq;
 
 namespace NorthwindStore.Data
@@ -16,26 +15,6 @@ namespace NorthwindStore.Data
         public IQueryable<Categories> GetCategories()
         {
             return dbContext.Categories;
-        }
-
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
-            {
-                if (disposing)
-                {
-                    dbContext.Dispose();
-                }
-            }
-            disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }

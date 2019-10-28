@@ -1,9 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace NorthwindStore.Data
 {
-    public interface IProductRepository : IDisposable
+    public interface IProductRepository
     {
         IQueryable<Models.Products> GetProducts();
         Models.Products GetProductById(int? productId);

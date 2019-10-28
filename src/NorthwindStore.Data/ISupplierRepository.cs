@@ -1,11 +1,10 @@
-﻿using System;
+﻿using NorthwindStore.Data.Models;
 using System.Linq;
-using NorthwindStore.Data.Models;
 
 namespace NorthwindStore.Data
 {
-	public interface ISupplierRepository : IDisposable
-	{
-		IQueryable<Suppliers> GetSuppliers();
-	}
+    public interface ISupplierRepository
+    {
+        IQueryable<Suppliers> GetSuppliers();
+    }
 }

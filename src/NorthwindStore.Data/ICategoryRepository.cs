@@ -1,9 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace NorthwindStore.Data
 {
-    public interface ICategoryRepository : IDisposable
+    public interface ICategoryRepository
     {
         IQueryable<Models.Categories> GetCategories();
     }
