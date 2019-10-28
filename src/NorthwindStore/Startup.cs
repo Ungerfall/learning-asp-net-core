@@ -25,6 +25,7 @@ namespace NorthwindStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddMemoryCache();
             services.AddDbContext<NorthwindContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("NorthwindContext")));
             services.AddTransient<ICategoryRepository, CategoryRepository>();
