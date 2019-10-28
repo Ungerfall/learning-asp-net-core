@@ -4,9 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using NorthwindStore.Data;
 using NorthwindStore.Data.Filters;
 using NorthwindStore.Data.Models;
+using System;
+using System.Linq;
 
 namespace NorthwindStore
 {
@@ -40,7 +43,7 @@ namespace NorthwindStore
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
@@ -65,6 +68,14 @@ namespace NorthwindStore
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            logger.LogInformation("Configuration: {0}", ConfigurationString);
         }
+
+        private string ConfigurationString => string.Join(
+            Environment.NewLine,
+            Configuration
+                .AsEnumerable()
+                .Select(x => $"{x.Key}: {x.Value}"));
     }
 }
