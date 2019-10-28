@@ -38,6 +38,22 @@ namespace NorthwindStore.Data
                 .FirstOrDefault(x => x.ProductId == productId);
         }
 
+        public void InsertProduct(Products product)
+        {
+            dbContext.Products.Add(product);
+        }
+
+        public void UpdateProduct(Products product)
+        {
+            dbContext.Attach(product);
+            dbContext.Entry(product).State = EntityState.Modified;
+        }
+
+        public void Save()
+        {
+            dbContext.SaveChanges();
+        }
+
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)

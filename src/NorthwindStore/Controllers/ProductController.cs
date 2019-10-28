@@ -63,7 +63,15 @@ namespace NorthwindStore.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(ProductViewModel viewModel)
         {
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                productRepository.UpdateProduct(viewModel.ProductModel);
+                productRepository.Save();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -90,9 +98,18 @@ namespace NorthwindStore.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(ProductViewModel viewModel)
         {
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                productRepository.InsertProduct(viewModel.ProductModel);
+                productRepository.Save();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(viewModel);
         }
     }
 }
