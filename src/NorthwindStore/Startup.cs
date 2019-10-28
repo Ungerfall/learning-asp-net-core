@@ -12,7 +12,7 @@ namespace NorthwindStore
 {
     public class Startup
     {
-        private string PRODUCTS_CONFIGURATION_SECTION = "Products";
+        private const string PRODUCTS_CONFIGURATION_SECTION = "Products";
 
         public Startup(IConfiguration configuration)
         {
@@ -26,8 +26,8 @@ namespace NorthwindStore
         {
             services.AddControllersWithViews();
             services.AddMemoryCache();
-            services.AddDbContext<NorthwindContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("NorthwindContext")));
+            services.AddDbContext<NorthwindContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("NorthwindContext")));
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ISupplierRepository, SupplierRepository>();
