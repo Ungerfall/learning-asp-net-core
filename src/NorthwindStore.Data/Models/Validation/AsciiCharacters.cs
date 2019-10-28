@@ -10,7 +10,7 @@ namespace NorthwindStore.Data.Models.Validation
             if (!(value is string text))
                 return base.IsValid(value, validationContext);
 
-            return text.Any(x => x < 0 && x >= 128)
+            return text.Any(x => x < 0 || x >= 128)
                 ? new ValidationResult(ErrorMessage)
                 : ValidationResult.Success;
         }
