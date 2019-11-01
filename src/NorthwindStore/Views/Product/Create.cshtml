@@ -1,0 +1,73 @@
+﻿@model NorthwindStore.ViewModels.ProductViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProductModel.ProductName" class="control-label"></label>
+                <input asp-for="ProductModel.ProductName" class="form-control" />
+                <span asp-validation-for="ProductModel.ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductModel.Supplier" class="control-label"></label>
+                <select asp-for="ProductModel.SupplierId" asp-items="@Model.Suppliers"></select>
+                <span asp-validation-for="ProductModel.SupplierId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductModel.Category" class="control-label"></label>
+                <select asp-for="ProductModel.CategoryId" asp-items="@Model.Categories"></select>
+                <span asp-validation-for="ProductModel.CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductModel.QuantityPerUnit" class="control-label"></label>
+                <input asp-for="ProductModel.QuantityPerUnit" class="form-control" />
+                <span asp-validation-for="ProductModel.QuantityPerUnit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductModel.UnitPrice" class="control-label"></label>
+                <input asp-for="ProductModel.UnitPrice" class="form-control" />
+                <span asp-validation-for="ProductModel.UnitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductModel.UnitsInStock" class="control-label"></label>
+                <input asp-for="ProductModel.UnitsInStock" class="form-control" />
+                <span asp-validation-for="ProductModel.UnitsInStock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductModel.UnitsOnOrder" class="control-label"></label>
+                <input asp-for="ProductModel.UnitsOnOrder" class="form-control" />
+                <span asp-validation-for="ProductModel.UnitsOnOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductModel.ReorderLevel" class="control-label"></label>
+                <input asp-for="ProductModel.ReorderLevel" class="form-control" />
+                <span asp-validation-for="ProductModel.ReorderLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ProductModel.Discontinued" /> @Html.DisplayNameFor(model => model.ProductModel.Discontinued)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
