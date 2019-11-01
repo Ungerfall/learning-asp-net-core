@@ -33,7 +33,7 @@ namespace NorthwindStore
             services.AddMemoryCache();
             services.AddDbContext<NorthwindContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("NorthwindContext")));
-//            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ISupplierRepository, SupplierRepository>();
             services.AddSingleton(x =>
