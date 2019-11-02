@@ -65,7 +65,7 @@ namespace NorthwindStore.Controllers
                 productRepository.UpdateProduct(viewModel.ProductModel);
                 productRepository.Save();
 
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
 
             viewModel.Categories = GetCategories();
@@ -97,7 +97,7 @@ namespace NorthwindStore.Controllers
                 productRepository.InsertProduct(viewModel.ProductModel);
                 productRepository.Save();
 
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
 
             viewModel.Suppliers = GetSuppliers();
