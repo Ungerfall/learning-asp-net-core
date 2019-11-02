@@ -62,7 +62,7 @@ namespace NorthwindStore
 
                         await context.Response.WriteAsync("<html lang=\"en\"><body>\r\n");
                         await context.Response.WriteAsync(
-	                        $"ERROR!<br>Ask support team for help. Error path = {exceptionPath}<br>\r\n");
+                            $"ERROR!<br>Ask support team for help. Error path = {exceptionPath}<br>\r\n");
 
                         logger.LogError("Path: {0}; Error: {1}", exceptionPath, exceptionError);
 
