@@ -12,7 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItem", "SolutionIte
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindStore.Test", "..\tests\NorthwindStore.Test\NorthwindStore.Test.csproj", "{953F27B7-797A-4671-9EF0-E0D22755146A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthwindStore.Test", "..\tests\NorthwindStore.Test\NorthwindStore.Test.csproj", "{953F27B7-797A-4671-9EF0-E0D22755146A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{21D2B387-5D42-4C34-B106-28B25CA891D7} = {21D2B387-5D42-4C34-B106-28B25CA891D7}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
