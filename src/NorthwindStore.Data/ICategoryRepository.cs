@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using NorthwindStore.Data.Models;
 
 namespace NorthwindStore.Data
 {
@@ -6,5 +7,7 @@ namespace NorthwindStore.Data
     {
         IQueryable<Models.Categories> GetCategories();
         Models.Categories GetCategoryById(int? categoryId);
+        void UpdateCategory(Categories category);
+        void Save();
     }
 }

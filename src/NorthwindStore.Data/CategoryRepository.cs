@@ -1,4 +1,5 @@
-﻿using NorthwindStore.Data.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using NorthwindStore.Data.Models;
 using System.Linq;
 
 namespace NorthwindStore.Data
@@ -20,6 +21,17 @@ namespace NorthwindStore.Data
         public Categories GetCategoryById(int? categoryId)
         {
             return dbContext.Categories.First(x => x.CategoryId == categoryId);
+        }
+
+        public void UpdateCategory(Categories category)
+        {
+            dbContext.Attach(category);
+            dbContext.Entry(category).State = EntityState.Modified;
+        }
+
+        public void Save()
+        {
+            dbContext.SaveChanges();
         }
     }
 }
