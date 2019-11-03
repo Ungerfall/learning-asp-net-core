@@ -18,5 +18,17 @@ namespace NorthwindStore.Controllers
             var categories = categoryRepository.GetCategories();
             return View(categories);
         }
+
+        [HttpGet("{id}.{format?}")]
+        public IActionResult Get(int? id, string format)
+        {
+            if (format == null)
+            {
+                RedirectToAction(nameof(Index));
+            }
+
+            byte[] image = categoryRepository.GetCategoryById(id).AlignedPicture;
+            return File(image, "image/bmp");
+        }
     }
 }
