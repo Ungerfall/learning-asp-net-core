@@ -49,6 +49,8 @@ namespace NorthwindStore
         {
             if (env.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
+                /*
                 app.UseExceptionHandler(errorApp =>
                 {
                     errorApp.Run(async context =>
@@ -71,6 +73,7 @@ namespace NorthwindStore
                         await context.Response.WriteAsync(new string(' ', 512)); // IE padding
                     });
                 });
+                */
             }
             else
             {
