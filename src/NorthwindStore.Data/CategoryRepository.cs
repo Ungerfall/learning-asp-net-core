@@ -16,5 +16,10 @@ namespace NorthwindStore.Data
         {
             return dbContext.Categories;
         }
+
+        public Categories GetCategoryById(int? categoryId)
+        {
+            return dbContext.Categories.First(x => x.CategoryId == categoryId);
+        }
     }
 }
