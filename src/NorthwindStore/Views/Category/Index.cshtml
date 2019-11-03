@@ -34,6 +34,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
+                <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a>
                 <a asp-action="Get" asp-route-id="@item.CategoryId" asp-route-format="bitmap">Image</a>
             </td>
         </tr>
