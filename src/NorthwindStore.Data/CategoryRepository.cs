@@ -20,7 +20,7 @@ namespace NorthwindStore.Data
 
         public Categories GetCategoryById(int? categoryId)
         {
-            return dbContext.Categories.First(x => x.CategoryId == categoryId);
+            return dbContext.Categories.FirstOrDefault(x => x.CategoryId == categoryId);
         }
 
         public void UpdateCategory(Categories category)
