@@ -22,15 +22,26 @@ namespace NorthwindStore.Controllers
             return View(categories);
         }
 
+        [Route("images/{id}")]
         [HttpGet("{id}.{format?}")]
         public IActionResult Get(int? id, string format)
         {
             if (format == null)
             {
-                RedirectToAction(nameof(Index));
+                var requestPath = HttpContext.Request.Path.Value;
+                if (!requestPath.StartsWith("/images/"))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
             }
 
-            byte[] image = categoryRepository.GetCategoryById(id).AlignedPicture;
+            var category = categoryRepository.GetCategoryById(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            byte[] image = category.AlignedPicture;
             return File(image, "image/bmp");
         }
 
