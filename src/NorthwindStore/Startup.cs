@@ -8,7 +8,10 @@ using Microsoft.Extensions.Logging;
 using NorthwindStore.Data;
 using NorthwindStore.Data.Filters;
 using NorthwindStore.Data.Models;
+using NorthwindStore.IO;
+using NorthwindStore.Middleware;
 using System;
+using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -18,6 +21,8 @@ namespace NorthwindStore
     public class Startup
     {
         private const string PRODUCTS_CONFIGURATION_SECTION = "Products";
+        private const string FILE_CACHE_CONFIGURATION_SECTION = "FileCache";
+        private const string LOGGING_FILTER_CONFIGURATION_SECTION = "LoggingFilter";
 
         public Startup(IConfiguration configuration)
         {
@@ -36,7 +41,17 @@ namespace NorthwindStore
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ISupplierRepository, SupplierRepository>();
-            services.AddSingleton(x =>
+            services.AddSingleton<IFileCache>(x =>
+            {
+                var cacheConfig = new FileCacheConfiguration();
+                Configuration.GetSection(FILE_CACHE_CONFIGURATION_SECTION).Bind(cacheConfig);
+                cacheConfig.Dir = Path.Combine(
+                    Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) ?? string.Empty,
+                    cacheConfig.Dir);
+                var fileCache = new AdamCarterFileCacheWrapper(cacheConfig);
+
+                return fileCache;
+            });
             {
                 var productCfg = new ProductFilter();
                 Configuration.GetSection(PRODUCTS_CONFIGURATION_SECTION).Bind(productCfg);
@@ -81,6 +96,7 @@ namespace NorthwindStore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseImageCaching();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
