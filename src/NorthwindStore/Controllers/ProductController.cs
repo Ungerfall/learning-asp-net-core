@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Caching.Memory;
 using NorthwindStore.Data;
 using NorthwindStore.Data.Models;
+using NorthwindStore.Filters;
 using NorthwindStore.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Linq;
 
 namespace NorthwindStore.Controllers
 {
+    [ServiceFilter(typeof(LoggingFilter))]
     public class ProductController : Controller
     {
         private readonly ISupplierRepository supplierRepository;
