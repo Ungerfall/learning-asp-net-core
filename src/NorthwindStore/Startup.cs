@@ -13,8 +13,8 @@ using NorthwindStore.Middleware;
 using System;
 using System.IO;
 using System.Linq;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
+using System.Reflection;
+using NorthwindStore.Filters;
 
 namespace NorthwindStore
 {
@@ -52,11 +52,20 @@ namespace NorthwindStore
 
                 return fileCache;
             });
+            services.AddSingleton<ProductFilter>(x =>
             {
                 var productCfg = new ProductFilter();
                 Configuration.GetSection(PRODUCTS_CONFIGURATION_SECTION).Bind(productCfg);
                 return productCfg;
             });
+            services.AddSingleton<LoggingFilterConfiguration>(container =>
+            {
+                var loggingFilterConfig = new LoggingFilterConfiguration();
+                Configuration.GetSection(LOGGING_FILTER_CONFIGURATION_SECTION).Bind(loggingFilterConfig);
+
+                return loggingFilterConfig;
+            });
+            services.AddScoped<LoggingFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
