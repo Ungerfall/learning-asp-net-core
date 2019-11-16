@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NorthwindStore.Data.Models;
+using System;
 using System.Diagnostics;
 
 namespace NorthwindStore.Controllers
