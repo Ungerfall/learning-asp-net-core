@@ -1,62 +1,46 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Caching;
-using System.Threading;
 
 namespace NorthwindStore.IO
 {
     public sealed class AdamCarterFileCacheWrapper : IFileCache
     {
-        private static object @lock = new object();
-
+        private readonly FileCacheConfiguration configuration;
         private readonly FileCache cache;
 
-        public AdamCarterFileCacheWrapper()
+        public AdamCarterFileCacheWrapper(FileCacheConfiguration configuration)
         {
-            cache = new FileCache(
-                cacheRoot: Configuration.Dir,
-                calculateCacheSize: false,
-                cleanInterval: Configuration.ExpirationTime);
+            this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+
+            cache = new FileCache(cacheRoot: configuration.Dir, calculateCacheSize: false);
         }
 
-        public MemoryStream GetOrCreate(string key, Func<MemoryStream> factory)
+        public MemoryStream Get(string key)
         {
-            lock (@lock)
-            {
-                if (cache.Contains(key))
+            if (!cache.Contains(key))
+                return null;
+
+            var cachedBytes = cache[key] as byte[];
+            //race condition
+            if (cachedBytes == null)
+                return null;
+
+            return new MemoryStream(cachedBytes);
+        }
+
+        public void Create(string key, MemoryStream stream)
+        {
+            var cachedItems = cache.GetCount();
+            if (cachedItems >= configuration.MaxCachedCount)
+                throw new Exception("Max items limit is exceeded");
+
+            cache.Add(
+                new CacheItem(key, stream.ToArray()),
+                new CacheItemPolicy
                 {
-                    var cachedBytes = cache[key] as byte[];
-                    if (cachedBytes == null)
-                        return null;
-
-                    return new MemoryStream(cachedBytes);
-                }
-            }
-
-
-            lock (@lock)
-            {
-                var cachedItems = cache.GetCount();
-                if (cachedItems >= Configuration.MaxCachedCount)
-                    return null;
-
-                var memoryStream = factory.Invoke();
-                cache.Add(
-                    new CacheItem(key, memoryStream.ToArray()),
-                    new CacheItemPolicy
-                    {
-                        AbsoluteExpiration = DateTimeOffset.Now.Add(Configuration.ExpirationTime)
-                    });
-
-                return memoryStream;
-            }
+                    AbsoluteExpiration = DateTimeOffset.Now.Add(configuration.ExpirationTime)
+                });
         }
-
-        public FileCacheConfiguration Configuration { get; set; } = new FileCacheConfiguration
-        {
-            Dir = "/image-cache",
-            ExpirationTime = Timeout.InfiniteTimeSpan,
-            MaxCachedCount = FileCacheConfiguration.INFINITY_CACHE_ENTRIES
-        };
     }
 }
