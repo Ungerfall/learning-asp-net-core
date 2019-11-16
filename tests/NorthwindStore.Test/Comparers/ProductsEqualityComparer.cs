@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using NorthwindStore.Data.Models;
 
-namespace NorthwindStore.Test.Utility
+namespace NorthwindStore.Test.Comparers
 {
     public class ProductsEqualityComparer : IEqualityComparer<Products>
     {

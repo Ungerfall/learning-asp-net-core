@@ -5,9 +5,9 @@ using Moq;
 using NorthwindStore.Controllers;
 using NorthwindStore.Data;
 using NorthwindStore.Data.Models;
-using NorthwindStore.Test.Utility;
 using NorthwindStore.ViewModels;
 using System.Linq;
+using NorthwindStore.Test.Comparers;
 using Xunit;
 
 namespace NorthwindStore.Test
