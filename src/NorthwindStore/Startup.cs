@@ -8,16 +8,21 @@ using Microsoft.Extensions.Logging;
 using NorthwindStore.Data;
 using NorthwindStore.Data.Filters;
 using NorthwindStore.Data.Models;
+using NorthwindStore.IO;
+using NorthwindStore.Middleware;
 using System;
+using System.IO;
 using System.Linq;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
+using System.Reflection;
+using NorthwindStore.Filters;
 
 namespace NorthwindStore
 {
     public class Startup
     {
         private const string PRODUCTS_CONFIGURATION_SECTION = "Products";
+        private const string FILE_CACHE_CONFIGURATION_SECTION = "FileCache";
+        private const string LOGGING_FILTER_CONFIGURATION_SECTION = "LoggingFilter";
 
         public Startup(IConfiguration configuration)
         {
@@ -33,15 +38,34 @@ namespace NorthwindStore
             services.AddMemoryCache();
             services.AddDbContext<NorthwindContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("NorthwindContext")));
-//            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ISupplierRepository, SupplierRepository>();
-            services.AddSingleton(x =>
+            services.AddSingleton<IFileCache>(x =>
+            {
+                var cacheConfig = new FileCacheConfiguration();
+                Configuration.GetSection(FILE_CACHE_CONFIGURATION_SECTION).Bind(cacheConfig);
+                cacheConfig.Dir = Path.Combine(
+                    Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) ?? string.Empty,
+                    cacheConfig.Dir);
+                var fileCache = new AdamCarterFileCacheWrapper(cacheConfig);
+
+                return fileCache;
+            });
+            services.AddSingleton<ProductFilter>(x =>
             {
                 var productCfg = new ProductFilter();
                 Configuration.GetSection(PRODUCTS_CONFIGURATION_SECTION).Bind(productCfg);
                 return productCfg;
             });
+            services.AddSingleton<LoggingFilterConfiguration>(container =>
+            {
+                var loggingFilterConfig = new LoggingFilterConfiguration();
+                Configuration.GetSection(LOGGING_FILTER_CONFIGURATION_SECTION).Bind(loggingFilterConfig);
+
+                return loggingFilterConfig;
+            });
+            services.AddScoped<LoggingFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +73,8 @@ namespace NorthwindStore
         {
             if (env.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
+                /*
                 app.UseExceptionHandler(errorApp =>
                 {
                     errorApp.Run(async context =>
@@ -62,7 +88,7 @@ namespace NorthwindStore
 
                         await context.Response.WriteAsync("<html lang=\"en\"><body>\r\n");
                         await context.Response.WriteAsync(
-	                        $"ERROR!<br>Ask support team for help. Error path = {exceptionPath}<br>\r\n");
+                            $"ERROR!<br>Ask support team for help. Error path = {exceptionPath}<br>\r\n");
 
                         logger.LogError("Path: {0}; Error: {1}", exceptionPath, exceptionError);
 
@@ -71,6 +97,7 @@ namespace NorthwindStore
                         await context.Response.WriteAsync(new string(' ', 512)); // IE padding
                     });
                 });
+                */
             }
             else
             {
@@ -78,6 +105,7 @@ namespace NorthwindStore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseImageCaching();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
