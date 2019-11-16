@@ -23,7 +23,8 @@ namespace NorthwindStore.Controllers
         }
 
         [Route("images/{id}")]
-        [HttpGet("{id}.{format?}")]
+        [Route("Category/{id}.{format?}")]
+        [HttpGet]
         public IActionResult Get(int? id, string format)
         {
             if (format == null)
