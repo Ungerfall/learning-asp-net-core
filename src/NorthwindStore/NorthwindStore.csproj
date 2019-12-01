@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NorthwindStore.Data\NorthwindStore.Data.csproj" />
+    <ProjectReference Include="..\NorthwindStore.IO\NorthwindStore.IO.csproj" />
   </ItemGroup>
 
 </Project>

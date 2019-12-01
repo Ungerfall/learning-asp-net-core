@@ -12,6 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItem", "SolutionIte
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthwindStore.Test", "..\tests\NorthwindStore.Test\NorthwindStore.Test.csproj", "{953F27B7-797A-4671-9EF0-E0D22755146A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{21D2B387-5D42-4C34-B106-28B25CA891D7} = {21D2B387-5D42-4C34-B106-28B25CA891D7}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindStore.IO", "NorthwindStore.IO\NorthwindStore.IO.csproj", "{C365C7B4-2EAA-49AA-A012-C23E4502D9E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +33,14 @@ Global
 		{7A8824E3-8341-47AD-9F9A-07DA6BD98CB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A8824E3-8341-47AD-9F9A-07DA6BD98CB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A8824E3-8341-47AD-9F9A-07DA6BD98CB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{953F27B7-797A-4671-9EF0-E0D22755146A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{953F27B7-797A-4671-9EF0-E0D22755146A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{953F27B7-797A-4671-9EF0-E0D22755146A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{953F27B7-797A-4671-9EF0-E0D22755146A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C365C7B4-2EAA-49AA-A012-C23E4502D9E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C365C7B4-2EAA-49AA-A012-C23E4502D9E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C365C7B4-2EAA-49AA-A012-C23E4502D9E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C365C7B4-2EAA-49AA-A012-C23E4502D9E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
