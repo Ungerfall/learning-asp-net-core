@@ -9,9 +9,9 @@
 </head>
 <body>
     <header>
-        @if (IsSectionDefined("Header"))
+        @if (IsSectionDefined("Headers"))
         {
-            @RenderSection("Header", required:false)
+            @RenderSection("Headers", required:false)
         }
         else
         {
@@ -49,9 +49,9 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        @if (IsSectionDefined("Footer"))
+        @if (IsSectionDefined("Footers"))
         {
-            @RenderSection("Footer", required:false)
+            @RenderSection("Footers", required:false)
         }
         else
         {
