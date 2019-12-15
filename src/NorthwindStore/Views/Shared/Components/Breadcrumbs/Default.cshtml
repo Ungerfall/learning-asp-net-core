@@ -11,12 +11,19 @@ else
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
         <ul class="navbar-nav flex-grow-1">
-        @foreach (var breadcrumb in @Model.Breadcrumbs)
+        @foreach (var breadcrumb in @Model.Breadcrumbs.Take(@Model.Breadcrumbs.Count - 1))
         {
             <li class="nav-item">
                 <a class="nav-link text-dark font-weight-bold" asp-controller=@breadcrumb.Controller asp-action=@breadcrumb.Action>@breadcrumb.Text</a>
             </li>
+            <li class="nav-item">
+                <text class="nav-link text-dark font-weight-bold">&gt;</text>
+            </li>
         }
+        @{ var last = Model.Breadcrumbs.Last.Value;}
+        <li class="nav-item">
+            <a class="nav-link text-dark font-weight-bold" asp-controller=@last.Controller asp-action=@last.Action>@last.Text</a>
+        </li>
         </ul>
     </div>
 </nav>

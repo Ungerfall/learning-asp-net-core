@@ -4,8 +4,6 @@ namespace NorthwindStore.ComponentModel.Design
 {
     public class LinkedBreadcrumbsFactory : ILinkedBreadcrumbsFactory
     {
-	    private const string BREADCRUMBS_SEPARATOR = ">";
-
         private readonly Dictionary<string, string> childParent = new Dictionary<string, string>
         {
             ["Product"] = "Home",
@@ -13,16 +11,16 @@ namespace NorthwindStore.ComponentModel.Design
         };
 
         private readonly Dictionary<(string, string), string> controllerActionByBreadcrumbText =
-	        new Dictionary<(string contoller, string action), string>
-        {
-            [(contoller: "Home", action: "Index")] = "Home",
-            [(contoller: "Product", action: "Index")] = "Products",
-            [(contoller: "Product", action: "Create")] = "Create New",
-            [(contoller: "Product", action: "Edit")] = "Edit",
-            [(contoller: "Category", action: "Index")] = "Categories",
-            [(contoller: "Category", action: "Create")] = "Create New",
-            [(contoller: "Category", action: "Edit")] = "Edit"
-        };
+            new Dictionary<(string contoller, string action), string>
+            {
+                [(contoller: "Home", action: "Index")] = "Home",
+                [(contoller: "Product", action: "Index")] = "Products",
+                [(contoller: "Product", action: "Create")] = "Create New",
+                [(contoller: "Product", action: "Edit")] = "Edit",
+                [(contoller: "Category", action: "Index")] = "Categories",
+                [(contoller: "Category", action: "Create")] = "Create New",
+                [(contoller: "Category", action: "Edit")] = "Edit"
+            };
 
         public LinkedList<Breadcrumb> Create(string topControllerName, string controllerAction)
         {
@@ -39,7 +37,7 @@ namespace NorthwindStore.ComponentModel.Design
                     {
                         Action = controllerAction,
                         Controller = topControllerName,
-                        Text = BREADCRUMBS_SEPARATOR + controllerActionByBreadcrumbText[(topControllerName, controllerAction)]
+                        Text = controllerActionByBreadcrumbText[(topControllerName, controllerAction)]
                     });
             }
 
@@ -84,7 +82,7 @@ namespace NorthwindStore.ComponentModel.Design
                     {
                         Action = "Index",
                         Controller = parent,
-                        Text = BREADCRUMBS_SEPARATOR + controllerActionByBreadcrumbText[(parent, "Index")]
+                        Text = controllerActionByBreadcrumbText[(parent, "Index")]
                     }
                 );
             }
