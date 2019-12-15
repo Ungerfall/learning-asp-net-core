@@ -11,7 +11,7 @@ namespace NorthwindStore.TagHelpers
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.Attributes.RemoveAll("href");
-            output.Attributes.SetAttribute("href", "images/" + NorthwindId);
+            output.Attributes.SetAttribute("href", "/images/" + NorthwindId);
         }
     }
 }
