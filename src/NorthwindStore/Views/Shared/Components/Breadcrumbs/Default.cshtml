@@ -1,0 +1,23 @@
+﻿@model NorthwindStore.ViewModels.BreadcrumbsViewModel
+
+<!DOCTYPE html>
+
+@if (Model?.Breadcrumbs == null)
+{
+    <div class="text-warning">Breadcrumbs is not supported in the current context.</div>
+}
+else
+{
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+        <ul class="navbar-nav flex-grow-1">
+        @foreach (var breadcrumb in @Model.Breadcrumbs)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark font-weight-bold" asp-controller=@breadcrumb.Controller asp-action=@breadcrumb.Action>@breadcrumb.Text</a>
+            </li>
+        }
+        </ul>
+    </div>
+</nav>
+}
