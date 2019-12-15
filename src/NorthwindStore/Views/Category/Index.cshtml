@@ -36,6 +36,7 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a>
                 <a asp-action="Get" asp-route-id="@item.CategoryId" asp-route-format="bmp">Image</a>
+                <a northwind-id="@item.CategoryId">ImageViaTagHelper</a>
             </td>
         </tr>
 }
