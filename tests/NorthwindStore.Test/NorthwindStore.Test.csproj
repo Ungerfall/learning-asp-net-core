@@ -20,8 +20,4 @@
     <ProjectReference Include="..\..\src\NorthwindStore\NorthwindStore.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="API\" />
-  </ItemGroup>
-
 </Project>
