@@ -9,12 +9,6 @@
 </head>
 <body>
     <header>
-        @if (IsSectionDefined("Headers"))
-        {
-            @RenderSection("Headers", required:false)
-        }
-        else
-        {
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NorthwindStore</a>
@@ -40,26 +34,20 @@
                 </div>
             </div>
         </nav>
-        @await Component.InvokeAsync("Breadcrumbs", Context)
-        }
     </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+            <img height="256" width="256" src="/content/images/watermelon0.jpg"/>
+            <img height="256" width="256" src="/content/images/watermelon1.jpg"/>
+            <img height="256" width="256" src="/content/images/watermelon2.jpg"/>
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
-        @if (IsSectionDefined("Footers"))
-        {
-            @RenderSection("Footers", required:false)
-        }
-        else
-        {
-            <div class="container">
-                &copy; 2019 - NorthwindStore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        }
+        <div class="container">
+            &copy; 2019 - NorthwindStore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
     </footer>
     <script src="~/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
