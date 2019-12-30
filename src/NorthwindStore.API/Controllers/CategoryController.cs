@@ -26,14 +26,20 @@ namespace NorthwindStore.API.Controllers
         }
 
         // GET: api/Category/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Categories>> GetCategory(int id)
+        [HttpGet("{id}.{format?}")]
+        public async Task<ActionResult<Categories>> GetCategory(int id, string format)
         {
             var category = await context.Categories.FindAsync(id);
 
             if (category == null)
             {
                 return NotFound();
+            }
+
+            if (format != null)
+            {
+                byte[] image = category.AlignedPicture;
+                return File(image, "image/bmp");
             }
 
             return category;
