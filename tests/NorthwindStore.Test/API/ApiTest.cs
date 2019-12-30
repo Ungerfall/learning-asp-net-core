@@ -9,6 +9,7 @@ using Xunit;
 
 namespace NorthwindStore.Test.API
 {
+    [Trait("Category", "Integration")]
     public class ApiTest
     {
         private static HttpClient client = new HttpClient();
@@ -37,8 +38,8 @@ namespace NorthwindStore.Test.API
         [Fact]
         public async Task ApiCategoriesGet_ReturnsJson_WithAllCategories()
         {
-	        IEnumerable<Categories> categories = null;
-	        var response = await client.GetAsync("category/");
+            IEnumerable<Categories> categories = null;
+            var response = await client.GetAsync("category/");
 
             Assert.True(response.IsSuccessStatusCode);
 
