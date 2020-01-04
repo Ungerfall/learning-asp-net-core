@@ -27,7 +27,7 @@ namespace NorthwindStore.API.Controllers
 
         // GET: api/Category/5
         [HttpGet("{id}.{format?}")]
-        public async Task<ActionResult<Categories>> GetCategory(int id, string format)
+        public async Task<ActionResult<Categories>> GetCategory(int id, string format = null)
         {
             var category = await context.Categories.FindAsync(id);
 

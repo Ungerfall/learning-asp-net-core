@@ -23,6 +23,7 @@ namespace NorthwindStore.API
             services.AddControllers();
             services.AddDbContext<NorthwindContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("NorthwindContext")));
+            services.AddSwaggerDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,6 +33,9 @@ namespace NorthwindStore.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseHttpsRedirection();
 
