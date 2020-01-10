@@ -14,6 +14,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using NorthwindStore.ComponentModel.Design;
 using NorthwindStore.Filters;
 
 namespace NorthwindStore
@@ -66,6 +67,7 @@ namespace NorthwindStore
                 return loggingFilterConfig;
             });
             services.AddScoped<LoggingFilter>();
+            services.AddSingleton<ILinkedBreadcrumbsFactory, LinkedBreadcrumbsFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

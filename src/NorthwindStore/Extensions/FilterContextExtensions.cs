@@ -29,7 +29,7 @@ namespace NorthwindStore.Extensions
                 .ControllerContext
                 .ActionDescriptor
                 .Parameters
-                .ToDictionary(x => x.Name, x => ctrl.RouteData.Values[x.Name].ToString());
+                .ToDictionary(x => x.Name, x => ctrl.RouteData.Values[x.Name]?.ToString());
         }
     }
 }
