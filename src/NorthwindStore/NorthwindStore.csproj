@@ -5,9 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="wwwroot\content\images\watermelon0.jpg" />
     <None Remove="wwwroot\content\images\watermelon1.jpg" />
     <None Remove="wwwroot\content\images\watermelon2.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Identity\Pages\_ViewStart.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
