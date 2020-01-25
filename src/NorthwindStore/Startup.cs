@@ -1,21 +1,22 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NorthwindStore.ComponentModel.Design;
 using NorthwindStore.Data;
 using NorthwindStore.Data.Filters;
 using NorthwindStore.Data.Models;
+using NorthwindStore.Filters;
 using NorthwindStore.IO;
 using NorthwindStore.Middleware;
 using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using NorthwindStore.ComponentModel.Design;
-using NorthwindStore.Filters;
 
 namespace NorthwindStore
 {
@@ -39,6 +40,8 @@ namespace NorthwindStore
             services.AddMemoryCache();
             services.AddDbContext<NorthwindContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("NorthwindContext")));
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<NorthwindContext>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ISupplierRepository, SupplierRepository>();
@@ -113,6 +116,7 @@ namespace NorthwindStore
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

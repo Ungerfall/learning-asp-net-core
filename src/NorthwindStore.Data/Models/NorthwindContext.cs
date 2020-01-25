@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace NorthwindStore.Data.Models
 {
-    public partial class NorthwindContext : DbContext
+    public partial class NorthwindContext : IdentityDbContext
     {
         public NorthwindContext()
         {
@@ -47,6 +46,7 @@ namespace NorthwindStore.Data.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<AlphabeticalListOfProducts>(entity =>
             {
                 entity.HasNoKey();
