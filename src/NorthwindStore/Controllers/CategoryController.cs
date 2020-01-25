@@ -5,10 +5,12 @@ using NorthwindStore.ViewModels;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NorthwindStore.Controllers
 {
     [ServiceFilter(typeof(LoggingFilter))]
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository categoryRepository;
