@@ -1,6 +1,11 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,14 +16,13 @@ using NorthwindStore.Data;
 using NorthwindStore.Data.Filters;
 using NorthwindStore.Data.Models;
 using NorthwindStore.Filters;
+using NorthwindStore.Identity;
 using NorthwindStore.IO;
 using NorthwindStore.Middleware;
 using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using NorthwindStore.Identity;
 
 namespace NorthwindStore
 {
@@ -51,6 +55,27 @@ namespace NorthwindStore
                 options.SignIn.RequireConfirmedEmail = true;
             });
             services.AddRazorPages();
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
+                .AddAzureAD(options =>
+                {
+                    Configuration.Bind("AzureAd", options);
+                    options.CookieSchemeName = IdentityConstants.ExternalScheme;
+                });
+
+            services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options =>
+            {
+                options.Authority = options.Authority + "/v2.0/";         // Microsoft identity platform
+
+                options.TokenValidationParameters.ValidateIssuer = false; // accept several tenants (here simplified)
+            });
 
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
