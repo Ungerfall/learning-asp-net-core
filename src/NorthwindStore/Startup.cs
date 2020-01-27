@@ -17,6 +17,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using NorthwindStore.Identity;
 
 namespace NorthwindStore
 {
@@ -44,6 +46,10 @@ namespace NorthwindStore
                 .AddEntityFrameworkStores<NorthwindContext>()
                 .AddDefaultTokenProviders()
                 .AddDefaultUI();
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = true;
+            });
             services.AddRazorPages();
 
             services.AddTransient<ICategoryRepository, CategoryRepository>();
@@ -75,6 +81,8 @@ namespace NorthwindStore
             });
             services.AddScoped<LoggingFilter>();
             services.AddSingleton<ILinkedBreadcrumbsFactory, LinkedBreadcrumbsFactory>();
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
