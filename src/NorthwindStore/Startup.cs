@@ -48,6 +48,7 @@ namespace NorthwindStore
                 options => options.UseSqlServer(Configuration.GetConnectionString("NorthwindContext")));
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<NorthwindContext>()
+                .AddRoles<IdentityRole>()
                 .AddDefaultTokenProviders()
                 .AddDefaultUI();
             services.Configure<IdentityOptions>(options =>
