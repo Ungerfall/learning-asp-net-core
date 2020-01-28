@@ -7,7 +7,8 @@ namespace NorthwindStore.ComponentModel.Design
         private readonly Dictionary<string, string> childParent = new Dictionary<string, string>
         {
             ["Product"] = "Home",
-            ["Category"] = "Home"
+            ["Category"] = "Home",
+            ["Administrator"] = "Home"
         };
 
         private readonly Dictionary<(string, string), string> controllerActionByBreadcrumbText =
@@ -19,7 +20,8 @@ namespace NorthwindStore.ComponentModel.Design
                 [(contoller: "Product", action: "Edit")] = "Edit",
                 [(contoller: "Category", action: "Index")] = "Categories",
                 [(contoller: "Category", action: "Create")] = "Create New",
-                [(contoller: "Category", action: "Edit")] = "Edit"
+                [(contoller: "Category", action: "Edit")] = "Edit",
+                [(contoller: "Administrator", action: "Index")] = "Administrator"
             };
 
         public LinkedList<Breadcrumb> Create(string topControllerName, string controllerAction)
