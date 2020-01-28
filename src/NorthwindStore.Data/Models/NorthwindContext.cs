@@ -587,7 +587,7 @@ namespace NorthwindStore.Data.Models
                     .HasConstraintName("FK_Territories_Region");
             });
 
-            // CreateAdminUser(modelBuilder);
+            CreateAdminUser(modelBuilder);
             OnModelCreatingPartial(modelBuilder);
         }
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
@@ -596,21 +596,21 @@ namespace NorthwindStore.Data.Models
         {
             var userId = "6DDAF061-62F4-452F-B36D-77F4E383F2C9";
             var roleId = "EEC425C3-AFE4-468B-BD90-336193205771";
-            var userName = "NorthwindStoreAdmin";
-            var email = "NorthwindStore@admin.com";
+            var userName = "NorthwindStore@admin.com";
             var roleName = "Administrator";
             var hasher = new PasswordHasher<IdentityUser>();
-            modelBuilder.Entity<IdentityUser>().HasData(new IdentityUser
+            var user = new IdentityUser
             {
                 Id = userId,
                 UserName = userName,
                 NormalizedUserName = userName.ToUpperInvariant(),
-                Email = email,
-                NormalizedEmail = email.ToUpperInvariant(),
+                Email = userName,
+                NormalizedEmail = userName.ToUpperInvariant(),
                 EmailConfirmed = true,
-                PasswordHash = hasher.HashPassword(null, "g91j_ynbXSdwvxZCYOk5"),
                 SecurityStamp = string.Empty
-            });
+            };
+            user.PasswordHash = hasher.HashPassword(user, "g91j_ynbXSdwvxZCYOk5");
+            modelBuilder.Entity<IdentityUser>().HasData(user);
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
             {
                 Id = roleId,
