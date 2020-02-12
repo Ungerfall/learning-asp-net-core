@@ -3,6 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UserSecretsId>996b27e4-4d73-4b81-9160-f6fcb0fbf9ed</UserSecretsId>
+    <Configurations>Debug;Release;Docker</Configurations>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Docker|AnyCPU'">
+    <DefineConstants>TRACE;DOCKER</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
