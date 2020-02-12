@@ -55,7 +55,8 @@ namespace NorthwindStore
             {
                 options.SignIn.RequireConfirmedEmail = true;
             });
-            services.AddRazorPages();
+            services.AddRazorPages()
+                .AddRazorRuntimeCompilation();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
