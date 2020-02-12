@@ -8,10 +8,12 @@ using NorthwindStore.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NorthwindStore.Controllers
 {
     [ServiceFilter(typeof(LoggingFilter))]
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly ISupplierRepository supplierRepository;

@@ -1,17 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>996b27e4-4d73-4b81-9160-f6fcb0fbf9ed</UserSecretsId>
   </PropertyGroup>
-
+  <ItemGroup>
+    <Content Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <None Remove="wwwroot\content\images\watermelon0.jpg" />
     <None Remove="wwwroot\content\images\watermelon1.jpg" />
     <None Remove="wwwroot\content\images\watermelon2.jpg" />
   </ItemGroup>
-
+  <ItemGroup>
+    <None Include="Areas\Identity\Pages\_ViewStart.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Karambolo.Extensions.Logging.File" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
@@ -22,11 +31,10 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.0.96" />
+    <PackageReference Include="SendGrid" Version="9.12.6" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\NorthwindStore.Data\NorthwindStore.Data.csproj" />
     <ProjectReference Include="..\NorthwindStore.IO\NorthwindStore.IO.csproj" />
   </ItemGroup>
-
 </Project>
