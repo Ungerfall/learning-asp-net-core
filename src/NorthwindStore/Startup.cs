@@ -32,12 +32,15 @@ namespace NorthwindStore
         private const string FILE_CACHE_CONFIGURATION_SECTION = "FileCache";
         private const string LOGGING_FILTER_CONFIGURATION_SECTION = "LoggingFilter";
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Env = env;
         }
 
         public IConfiguration Configuration { get; }
+
+        public IWebHostEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -55,8 +58,11 @@ namespace NorthwindStore
             {
                 options.SignIn.RequireConfirmedEmail = true;
             });
-            services.AddRazorPages()
-                .AddRazorRuntimeCompilation();
+            var mvcBuilder = services.AddRazorPages();
+#if DEBUG
+            if (Env.IsDevelopment())
+                mvcBuilder.AddRazorRuntimeCompilation();
+#endif
 
             services.Configure<CookiePolicyOptions>(options =>
             {
